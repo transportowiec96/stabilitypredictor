@@ -32,5 +32,6 @@ function populate_zones(map_num)
 }
 function buy(num)
 {
+    alert('This message should not appear. Please notify the developer if it appears.')
     bought.push(initiatives[num]);
 }
