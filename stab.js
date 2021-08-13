@@ -68,10 +68,209 @@ const initiatives =
     new ini("Electricity 2",12,1,1,30.10,"Electricity 1",'electricity'),
     new ini("Road Building 1",8,0.3,0.3,38,"Infra Discussions",'roads'),
     new ini("Road Building 2",8,0.3,0.3,38,"Road Building 1",'roads'),
+    new ini("PR & Media Office",0,0,0,0,"",'pr'),
+    new ini("Strategic Communications",0,0,0,0,"",'pr'),
+    new ini("District Representatives",12,1,1,27.78,"",'reps')
 ];
-const reps = new ini("District Representatives",12,1,1,27.78,"",'reps');
+
 var bought = [];
 function calculate()
 {
-    alert('This message should not appear. Please notify the developer if it appears.')
+    var turns = 24;
+    var pr_buff = 1;
+    var calculated_zone = allmaps[document.getElementById('map_pick').value][document.getElementById('zone_pick').value];
+    var requirement = calculated_zone.srq;
+    var sup_amount = calculated_zone.presupport;
+    var num_hammer = 4;
+    if (calculated_zone.type === 'remote')
+    {
+        num_hammer = 2;
+    }
+    if(document.getElementById('ishq').checked)
+    {
+        requirement *=0.635;
+    }
+    var built = [];
+    var building = [];
+    var temp_build = [];
+    for(z=0;z<bought.length;z+=1)
+    {
+        building[z] = initiatives[bought[z]];
+        console.log(building)
+        building[z].costtobuild = building[z].costtobuild/(1+calculated_zone.access);
+        building[z].costtobuild += (document.getElementById('month_pick_'+bought[z]).value*1-18) + document.getElementById('year_pick_'+bought[z]).value*1;
+    }
+    ;
+    while(requirement>sup_amount && turns < 10000)
+    {
+        temp_build = [...building];
+        var spliced_el = 0;
+        for(z=0;z<building.length;z+=1)
+        {
+            if(z-num_hammer <= 0)
+            {
+                var build_type = []
+                if (building.length===2)
+                {
+                    build_type = [building[0].type,building[1].type]
+                    if(isjob(building[z].type) === true)
+                    {
+                        switch(matches_thing(build_type))
+                        {
+                            case 1:
+                                building[z].costtobuild -= 1;
+                                break;
+                            case 2:
+                                building[z].costtobuild -= 0.9;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        building[z].costtobuild -= 1;
+                    }
+                }
+                else if (building.length===3)
+                {
+                    build_type = [building[0].type,building[1].type,building[2].type]
+                    if(isjob(building[z].type) === true)
+                    {
+                        switch(matches_thing(build_type))
+                        {
+                            case 1:
+                                building[z].costtobuild -= 1;
+                                break;
+                            case 2:
+                                building[z].costtobuild -= 0.9;
+                                break;
+                            case 3:
+                                building[z].costtobuild -= 0.825;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        building[z].costtobuild -= 1;
+                    }
+                }
+                else if(building.length > 3)
+                {
+                    building[z].costtobuild -= 0.725;
+                }
+                else
+                {
+                    building[z].costtobuild -= 1;
+                }
+            }
+            if(building[z].costtobuild < 1)
+            {
+                built.push(building[z])
+                temp_build.splice(z-spliced_el,1)
+                spliced_el+=1;
+                if(building[z].name === "PR & Media Office")
+                {
+                    pr_buff=1.9;
+                }
+                if(building[z].name === "Strategic Communications")
+                {
+                    pr_buff=2.4;
+                }
+                console.log("built " + building[z].name);
+            }
+        }
+        building=[...temp_build];
+        var supportchange = 0;
+        for(z=0;z<built.length;z+=1)
+        {
+            supportchange += (36/calculated_zone.size)*(support(built[z],calculated_zone,pr_buff));
+        }
+        supportchange = (supportchange*0.015);
+        sup_amount += (supportchange/100);
+        turns+=1;
+        console.log("turn "+turns+" "+sup_amount+"% supporters");
+    }
+    if(turns < 9995)
+    {
+        document.getElementById("year").innerHTML = Math.floor(turns/72)+2002;
+        document.getElementById("month").innerHTML = months[document.getElementById('lang_choosen').value][Math.floor(turns%72/6)];
+    }
+    else
+    {
+        document.getElementById("year").innerHTML = '';
+        document.getElementById("month").innerHTML = 'undefined';
+    }
+}
+function support(ini,zone,prmod)
+{
+    switch(ini.type)
+    {
+        case 'genericjob':
+        case 'agricultural':
+        case 'city':
+            var job_multiplier = 1;
+            if(zone.type === ini.type && ini.type != 'genericjob')
+            {
+                job_multiplier = 1.5;
+            }
+            else if(ini.type === 'genericjob')
+            {
+                job_multiplier = 1;
+            }
+            else 
+            {
+                job_multiplier = 0.75;
+            }
+            var hostile_multiplier = (1-((zone.hostileperc*4)));
+            if(hostile_multiplier < 0.01)
+            {
+                hostile_multiplier = 0.01;
+            }
+            return ini.support*job_multiplier*0.55*hostile_multiplier*prmod;
+        default:
+            return  ini.support*0.4325*prmod;
+
+    }
+
+}
+function matches_thing(arey)
+{
+    var jobberinos = 0;
+    if(arey.length > 0)
+    {
+        if(isjob(arey[0]))
+        {
+            jobberinos += 1;
+        }
+        if(arey.length > 1)
+        {
+            if(isjob(arey[1]))
+            {
+                jobberinos += 1;
+            }
+            if(arey.length > 2)
+            {
+                if(isjob(arey[2]))
+                {
+                    jobberinos += 1;
+                }
+                if(arey.length > 3)
+                {
+                    if(isjob(arey[3]))
+                    {
+                        jobberinos += 1;
+                    }
+                }
+            }
+        }
+        
+    }
+    return jobberinos;
+}
+function isjob(thingy)
+{
+    if(thingy === 'genericjob' || thingy === 'agricultural' || thingy === 'city')
+    {
+        return true;
+    }
+    return false;
 }

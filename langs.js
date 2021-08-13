@@ -23,8 +23,47 @@ const english =
     "Choose Map",
     "PREDICTION",
     "STABILITY PREDICTOR",
-    "This zone will not stabilise in time"
+    //"This zone will not stabilise in time"
+    "Headquarters",
+    "Mountain Pass",
+    "Electricity 1",
+    "Electricity 2",
+    "Southern Desert",
+    "Pistachio Forest"
 ];
+const polish = 
+[
+    "Kontynuuj",
+    "Szkolenie Zawodowe",
+    "Prawa Ziemskie",
+    "Bank Rozwoju",
+    "Logistyka Rolnicza",
+    "Pomoc Fabrykom",
+    "Rozwój Upraw Rolnych",
+    "Agencje Eksportowe",
+    "Rozwój Hodowli",
+    "Pomoc Firmom",
+    //"Dotacje dla zadupiów",
+    "Przedstawiciele Regionalni",
+    "Biuro PR",
+    "Strategiczne Komunikacje",
+    "Kup",
+    "Szlak Opiumowy",
+    "Wkrótce",
+    "Wymagany Poziom Poparcia",
+    "Prognozuj!",
+    "Wybrana strefa ustabilizuje się w",
+    "Wybierz Mapę",
+    "PROGNOZA",
+    "PROGNOZA STABILNOŚCI",
+    //"Ta strefa nigdy się nie ustabilizuje",
+    "Kwatera Główna",
+    "Górski Przesmyk",
+    "Elektryczność 1",
+    "Elektryczność 2",
+    "Południowa Pustynia",
+    "Fistaszkowy Las"
+]
 const korean = 
 [
     "계속",
@@ -45,12 +84,18 @@ const korean =
     "아편길",
     "추가 예정",
     "안정화 컷",
-    "예보!",
-    "선택한 영역은 다음에서 안정됩니다:",
+    "예측하기",
+    "해당 지역이 안정화 될 때의 시점은",
     "지도 선택",
     "예측",
     "안정성 예측자",
-    "이 영역은 시간이 지나면 안정화되지 않습니다."
+    //"이 영역은 시간이 지나면 안정화되지 않습니다." not proofread
+    "본부",
+    "산길",
+    "전기 1",
+    "전기 2",
+    "남부 사막",
+    "피스타치오 숲"
 ];
 const chinese = 
 [
@@ -60,7 +105,7 @@ const chinese =
     "test",
 ]
 
-const langs = [english,korean,chinese]
+const langs = [english,korean,polish,chinese]
 const eng = 
 [
     "January",
@@ -78,18 +123,18 @@ const eng =
 ]
 const kor = 
 [
-    "일월",
-    "이월",
-    "삼월",
-    "사월",
-    "오월",
-    "유월",
-    "칠월",
-    "팔월",
-    "구월",
-    "시월",
-    "십일월",
-    "십이월"
+    "1월",
+    "2월",
+    "3월",
+    "4월",
+    "5월",
+    "6월",
+    "7월",
+    "8월",
+    "9월",
+    "10월",
+    "11월",
+    "12월"
 ]
 const chi =
 [
@@ -106,4 +151,19 @@ const chi =
     "November",
     "December"
 ]
-const months = [eng,kor,chi]
+const pol =
+[
+    "Styczeń",
+    "Luty",
+    "Marzec",
+    "Kwiecień",
+    "Maj",
+    "Czerwiec",
+    "Lipiec",
+    "Sierpień",
+    "Wrzesień",
+    "Październik",
+    "Listopad",
+    "Grudzień"
+]
+const months = [eng,kor,pol,chi]

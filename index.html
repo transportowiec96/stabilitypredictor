@@ -31,16 +31,17 @@
                 justify-content: space-between;
 
             }
-            #initiatives
+            #initiatives,#prediction
             {
                 display:flex;
                 flex-direction: column;
                 width:30%;
             }
-            #prediction,#zone_picker
+            #zone_picker
             {
                 display:flex;
                 flex-direction: column;
+                width:40%;
             }
         </style>
     </head>
@@ -50,25 +51,35 @@
             <select id='lang_choosen' onchange="update_lang()">
                 <option value='0'>English</option>
                 <option value='1'>한국어 (불완전한)</option>
-                <option value='2'>Chinese (WIP)</option>
+                <option value='2'>Polski</option>
+                <option value='3'>Soon (TM)</option>
             </select>
             <button id='Continue' class='lang_string' onclick='go_to_program()'>Continue</button>
+            <p>Known bugs:
+            <ul>
+                <li><b>RESET THE PAGE AFTER PREDICTING</b> - build values do not reload correctly and I've no idea how to fix it (yet)</li>
+                <li>Construction penalty is predicted instead of empirical (slightly changes the prediction)</li>
+                <li>Bugs aren't translated because I'm lazy - use google translate or something</li>
+            </ul>
+            </p>
         </div>
         <div id='program'>
             <div id='initiatives'>
+                <div style='display:flex;'><span id="Headquarters" class='lang_string'>kwatera</span><input type='checkbox' id='ishq'></div>
                 <div style='display:flex;'><span id="Vocational Training" class='lang_string'>szkolenie</span><button id="Buy" onclick='buy(16)' class='lang_string'>kupse</button></div>
                 <div style='display:flex;'><span id="Land Rights" class='lang_string'>teren</span><button id="Buy" onclick='buy(17)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="Development Bank" class='lang_string'>teren</span><button id="Buy" onclick='buy(18)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="Agricultural Logistics" class='lang_string'>teren</span><button id="Buy" onclick='buy(19)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="Industrial Support" class='lang_string'>teren</span><button id="Buy" onclick='buy(20)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="Crop Development" class='lang_string'>teren</span><button id="Buy" onclick='buy(21)' class='lang_string'>kupse</button></div>
                 <div style='display:flex;'><span id="Export Agencies" class='lang_string'>teren</span><button id="Buy" onclick='buy(22)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="Livestock Development" class='lang_string'>teren</span><button id="Buy" onclick='buy(23)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Development Bank" class='lang_string'>teren</span><button id="Buy" onclick='buy(18)' class='lang_string'>kupse</button></div>
                 <div style='display:flex;'><span id="Commercial Support" class='lang_string'>teren</span><button id="Buy" onclick='buy(24)' class='lang_string'>kupse</button></div>
-            <!--<div style='display:flex;'><span id="District Representatives" class='lang_string'>teren</span><button id="Buy" onclick='buy(-1)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="PR & Media Office" class='lang_string'>teren</span><button id="Buy" onclick='buy(-1)' class='lang_string'>kupse</button></div>
-                <div style='display:flex;'><span id="Strategic Communications" class='lang_string'>teren</span><button id="Buy" onclick='buy(-2)' class='lang_string'>kupse</button></div>
-                -->
+                <div style='display:flex;'><span id="Industrial Support" class='lang_string'>teren</span><button id="Buy" onclick='buy(20)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Livestock Development" class='lang_string'>teren</span><button id="Buy" onclick='buy(23)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Crop Development" class='lang_string'>teren</span><button id="Buy" onclick='buy(21)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Agricultural Logistics" class='lang_string'>teren</span><button id="Buy" onclick='buy(19)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Electricity 1" class='lang_string'>teren</span><button id="Buy" onclick='buy(27)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Electricity 2" class='lang_string'>teren</span><button id="Buy" onclick='buy(28)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="District Representatives" class='lang_string'>teren</span><button id="Buy" onclick='buy(33)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="PR & Media Office" class='lang_string'>teren</span><button id="Buy" onclick='buy(31)' class='lang_string'>kupse</button></div>
+                <div style='display:flex;'><span id="Strategic Communications" class='lang_string'>teren</span><button id="Buy" onclick='buy(32)' class='lang_string'>kupse</button></div>
             </div>
             <div id='prediction'>
                 <span id="PREDICTION" class='lang_string' >PREDICTION</span>
@@ -79,11 +90,14 @@
             <div id='zone_picker'>
                 <span id="Choose Map"class='lang_string'>Choose Map</span>
                 <select id='map_pick' onchange="change_map()">
-                    <option id="Opium Trail" class='lang_string' value='0'>Opium Trail</option>
-                    <option id="Coming Soon" class='lang_string' value='1'>Coming Soon</option>
+                    <option id="Mountain Pass" class='lang_string' value='0'>Mountain Pass</option>
+                    <option id="Southern Desert" class='lang_string' value='2'>Southern Desert</option>
+                    <option id="Pistachio Forest" class='lang_string' value='3'>Pistachio Forest</option>
+                    <option id="Opium Trail" class='lang_string' value='4'>Opium Trail</option>
+                    <option id="Coming Soon" class='lang_string' value='5'>Coming Soon</option>
                 </select>
-                <img id="map_picture" src='maps/Opium Trail.PNG'>
-                <select id='zone_pick'></select>
+                <img id="map_picture" src='maps/Mountain Pass_Echo Romeo.png'>
+                <select id='zone_pick' onchange="change_zone_pic()"></select>
             </div>
         </div>
     </body>
