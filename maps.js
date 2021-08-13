@@ -66,7 +66,7 @@ const forest =
 //new zone(name,hostileperc,popnum,srq,access,presupport,size,type),
 const soon = 
 [
-	new zone("Hello There",0.99,10000,0.99,0.01,0,1,'city')
+	new zone("Hello_There",0.99,10000,0.99,0.01,0,1,'city')
 ]
 const allmaps = [pass,desert,forest,opium,soon]
 const map_names = ["Mountain_Pass","Southern_Desert","Pistachio_Forest","Opium_Trail","Coming_Soon"]
