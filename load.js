@@ -17,13 +17,13 @@ function go_to_program()
 }
 function change_map()
 {
-    document.getElementById('map_picture').src = 'maps/'+map_names[document.getElementById('map_pick').value]+'_'+allmaps[document.getElementById('map_pick').value][0].name+'.PNG'
+    document.getElementById('map_picture').src = 'maps/'+map_names[document.getElementById('map_pick').value]+'_'+allmaps[document.getElementById('map_pick').value][0].name+'.png'
     update_lang();
     populate_zones(document.getElementById('map_pick').value);
 }
 function change_zone_pic()
 {
-    document.getElementById('map_picture').src = 'maps/'+map_names[document.getElementById('map_pick').value]+'_'+allmaps[document.getElementById('map_pick').value][document.getElementById('zone_pick').value].name+'.PNG'
+    document.getElementById('map_picture').src = 'maps/'+map_names[document.getElementById('map_pick').value]+'_'+allmaps[document.getElementById('map_pick').value][document.getElementById('zone_pick').value].name+'.png'
 }
 function populate_zones(map_num)
 {
